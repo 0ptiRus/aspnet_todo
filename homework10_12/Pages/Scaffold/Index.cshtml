@@ -1,0 +1,23 @@
+﻿@page
+@model homework10_12.Pages.Scaffold.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    Your to-do list:
+</p>
+<ol>
+    @foreach (var item in Model.Todo)
+    {
+        <li>
+            <p>
+                @Html.DisplayFor(modelItem => item.Description)
+            </p>
+        </li>
+    }
+
+</ol>
