@@ -7,32 +7,30 @@ public static class SeedData
 {
     public static void Initialize(IServiceProvider serviceProvider)
     {
-        using (var context = new TodoContext(
+        using TodoContext context = new TodoContext(
             serviceProvider.GetRequiredService<
-                DbContextOptions<TodoContext>>()))
+                DbContextOptions<TodoContext>>());
+        if (context == null || context.Todo == null)
         {
-            if (context == null || context.Todo == null)
-            {
-                throw new ArgumentNullException("Null context");
-            }
-
-            if (context.Todo.Any())
-            {
-                return;  
-            }
-
-            context.Todo.AddRange(
-                new Models.Todo
-                {
-                    Description="Wash the clothes"
-                },
-
-                new Models.Todo
-                {
-                    Description="Do the dishes"
-                }
-            );
-            context.SaveChanges();
+            throw new ArgumentNullException("Null context");
         }
+
+        if (context.Todo.Any())
+        {
+            return;
+        }
+
+        context.Todo.AddRange(
+            new Models.Todo
+            {
+                Description = "Wash the clothes"
+            },
+
+            new Models.Todo
+            {
+                Description = "Do the dishes"
+            }
+        );
+        context.SaveChanges();
     }
 }
